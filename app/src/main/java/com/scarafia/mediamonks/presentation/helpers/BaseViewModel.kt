@@ -14,7 +14,6 @@ open class BaseViewModel: ViewModel() {
 
     init {
         _progress.value = false
-        _toastMsg.value = null
     }
 
     fun showToast(msg: String) {

@@ -19,6 +19,7 @@ class HomeViewModel(private val dataRepository: TypicodeRepository): BaseViewMod
 
     init {
         getAlbumsList()
+        getPhotosList()
     }
 
     private fun getAlbumsList() {
@@ -26,6 +27,18 @@ class HomeViewModel(private val dataRepository: TypicodeRepository): BaseViewMod
             showProgress()
             try {
                 _albumList.value = dataRepository.getAlbumsList()
+            } catch (e: Exception) {
+                showToast(e.message.toString())
+            }
+            hideProgress()
+        }
+    }
+
+    private fun getPhotosList(){
+        viewModelScope.launch {
+            showProgress()
+            try {
+                _photosList.value = dataRepository.getPhotoList()
             } catch (e: Exception) {
                 showToast(e.message.toString())
             }
