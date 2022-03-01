@@ -11,13 +11,17 @@
             android:id="@+id/ivPhoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minWidth="@dimen/photo_min_width"
+            android:minHeight="@dimen/photo_min_height"
+            android:maxHeight="@dimen/photo_max_height"
+            android:maxWidth="@dimen/photo_max_width"
             android:loadImageWithGlideFromUrl="@{photo.thumbnailUrl}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/tvPhotoName"
             android:layout_marginVertical="@dimen/album_list_margin_vertical"
-            tools:src = "@drawable/ic_launcher_foreground"/>
+            tools:src = "@drawable/ic_baseline_image_not_supported"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvPhotoName"

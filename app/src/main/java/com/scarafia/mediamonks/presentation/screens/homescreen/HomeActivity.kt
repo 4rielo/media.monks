@@ -26,14 +26,16 @@ class HomeActivity : AppCompatActivity() {
 
         albumsFragment = AlbumsFragment()
         photosFragment = PhotosFragment()
-        fragmentAdapter.setFragmentList(listOf(albumsFragment, photosFragment))
+
+        val fragmentList = listOf(AlbumsFragment.fragmentNameResource, PhotosFragment.fragmentNameResource) to listOf(albumsFragment, photosFragment)
+        fragmentAdapter.setFragmentList(fragmentList.second)
 
         binding.apply {
             viewModel = homeViewModel
             vpFragmentViewer.adapter = fragmentAdapter
 
             TabLayoutMediator(tbTabLayout, vpFragmentViewer) { tab, position ->
-                tab.text = if(position == 0) {"Albums"} else {"Photos"}
+                tab.text = getString(fragmentList.first[position])
             }.attach()
         }
 
