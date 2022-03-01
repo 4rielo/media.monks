@@ -24,6 +24,10 @@ class PhotosFragment : Fragment() {
 
     private lateinit var photoListAdapter: PhotoListAdapter
 
+    companion object{
+        val fragmentNameResource = R.string.photo_list_fragment
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
