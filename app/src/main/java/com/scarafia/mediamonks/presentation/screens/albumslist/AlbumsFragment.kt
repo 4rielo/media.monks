@@ -32,6 +32,9 @@ class AlbumsFragment : Fragment() {
         binding.apply {
             viewModel = homeViewModel
             rvAlbumList.adapter = albumListAdapter
+            swSwipeToRefresh.setOnRefreshListener {
+                homeViewModel.refreshAlbumList()
+            }
         }
 
         return binding.root
@@ -49,6 +52,7 @@ class AlbumsFragment : Fragment() {
     private fun observeAlbumList() {
         homeViewModel.albumModelList.observe(this){
             albumListAdapter.updateRecycler(it)
+            binding.swSwipeToRefresh.isRefreshing = false
         }
     }
 }
