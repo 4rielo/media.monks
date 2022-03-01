@@ -47,6 +47,9 @@ class PhotosFragment : Fragment() {
             viewModel = homeViewModel
             rvPhotoList.adapter = photoListAdapter
             rvPhotoList.layoutManager = GridLayoutManager(activity,2)
+            swSwipeToRefresh.setOnRefreshListener {
+                homeViewModel.refreshPhotoList()
+            }
         }
 
         return binding.root
@@ -64,6 +67,7 @@ class PhotosFragment : Fragment() {
     private fun observeAlbumList() {
         homeViewModel.photosList.observe(this){
             photoListAdapter.updateRecycler(it)
+            binding.swSwipeToRefresh.isRefreshing=false
         }
     }
 }

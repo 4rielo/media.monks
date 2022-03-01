@@ -3,6 +3,7 @@ package com.scarafia.mediamonks.presentation.screens.homescreen
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.view.isVisible
 import com.google.android.material.tabs.TabLayoutMediator
 import com.scarafia.mediamonks.databinding.ActivityHomeBinding
 import com.scarafia.mediamonks.presentation.screens.albumslist.AlbumsFragment
@@ -27,7 +28,10 @@ class HomeActivity : AppCompatActivity() {
         albumsFragment = AlbumsFragment()
         photosFragment = PhotosFragment()
 
-        val fragmentList = listOf(AlbumsFragment.fragmentNameResource, PhotosFragment.fragmentNameResource) to listOf(albumsFragment, photosFragment)
+        val fragmentList = listOf(
+            AlbumsFragment.fragmentNameResource,
+            PhotosFragment.fragmentNameResource
+        ) to listOf(albumsFragment, photosFragment)
         fragmentAdapter.setFragmentList(fragmentList.second)
 
         binding.apply {
@@ -49,11 +53,18 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setObservers() {
         observeToast()
+        observeProgress()
     }
 
-    private fun observeToast(){
-        homeViewModel.toastMsg.observe(this){
+    private fun observeToast() {
+        homeViewModel.toastMsg.observe(this) {
             Toast.makeText(applicationContext, it, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun observeProgress() {
+        homeViewModel.progress.observe(this) {
+            binding.loadingIndicator.isVisible = it
         }
     }
 

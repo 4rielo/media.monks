@@ -7,6 +7,7 @@ import com.scarafia.mediamonks.application.model.AlbumModel
 import com.scarafia.mediamonks.application.model.PhotosModel
 import com.scarafia.mediamonks.application.repository.TypicodeRepository
 import com.scarafia.mediamonks.presentation.helpers.BaseViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val dataRepository: TypicodeRepository): BaseViewModel() {
@@ -18,8 +19,20 @@ class HomeViewModel(private val dataRepository: TypicodeRepository): BaseViewMod
     val photosList: LiveData<List<PhotosModel>> = _photosList
 
     init {
-        getAlbumsList()
-        getPhotosList()
+        getListsResources()
+    }
+
+    private fun getListsResources() {
+        viewModelScope.launch {
+            showProgress()
+            try {
+                _albumList.value = dataRepository.getAlbumsList()
+                _photosList.value = dataRepository.getPhotoList()
+            } catch (e: Exception) {
+                showToast(e.message.toString())
+            }
+            hideProgress()
+        }
     }
 
     private fun getAlbumsList() {
@@ -44,5 +57,13 @@ class HomeViewModel(private val dataRepository: TypicodeRepository): BaseViewMod
             }
             hideProgress()
         }
+    }
+
+    fun refreshAlbumList() {
+        getAlbumsList()
+    }
+
+    fun refreshPhotoList(){
+        getPhotosList()
     }
 }
