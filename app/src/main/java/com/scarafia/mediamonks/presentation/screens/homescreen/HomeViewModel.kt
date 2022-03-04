@@ -1,6 +1,7 @@
 package com.scarafia.mediamonks.presentation.screens.homescreen
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.scarafia.mediamonks.application.model.AlbumModel
@@ -17,6 +18,34 @@ class HomeViewModel(private val dataRepository: TypicodeRepository): BaseViewMod
 
     private val _photosList = MutableLiveData<List<PhotosModel>>()
     val photosList: LiveData<List<PhotosModel>> = _photosList
+
+    private val _mediatiorCombinedList = MediatorLiveData<List<Pair<AlbumModel, List<PhotosModel>>>> ().apply {
+        var photosList: List<PhotosModel> = emptyList()
+        var albumsList: List<AlbumModel> = emptyList()
+
+        addSource(_photosList) {
+            photosList = it
+            if(albumsList.isNotEmpty()) {
+                val resultingList: List<Pair<AlbumModel, List<PhotosModel>>> = albumsList.map { album ->
+                    album to photosList.filter { photos -> photos.albumId == album.id }
+                }
+                this.value = resultingList
+            }
+        }
+
+        addSource(_albumList) {
+            albumsList = it
+            if(photosList.isNotEmpty()) {
+                val resultingList: List<Pair<AlbumModel, List<PhotosModel>>> = albumsList.map { album ->
+                    album to photosList.filter { photos -> photos.albumId == album.id }
+                }
+                this.value = resultingList
+            }
+        }
+
+    }
+
+    val mediatorCombinedList : LiveData<List<Pair<AlbumModel, List<PhotosModel>>>> = _mediatiorCombinedList
 
     init {
         getListsResources()

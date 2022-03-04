@@ -7,7 +7,9 @@ import androidx.core.view.isVisible
 import com.google.android.material.tabs.TabLayoutMediator
 import com.scarafia.mediamonks.databinding.ActivityHomeBinding
 import com.scarafia.mediamonks.presentation.screens.albumslist.AlbumsFragment
+import com.scarafia.mediamonks.presentation.screens.combinedview.CombinedAlbumPhotoFragment
 import com.scarafia.mediamonks.presentation.screens.photoslist.PhotosFragment
+import kotlinx.coroutines.flow.combine
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeActivity : AppCompatActivity() {
@@ -19,6 +21,7 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var albumsFragment: AlbumsFragment
     private lateinit var photosFragment: PhotosFragment
+    private lateinit var combinedFragment: CombinedAlbumPhotoFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,11 +30,14 @@ class HomeActivity : AppCompatActivity() {
 
         albumsFragment = AlbumsFragment()
         photosFragment = PhotosFragment()
+        combinedFragment = CombinedAlbumPhotoFragment()
 
         val fragmentList = listOf(
             AlbumsFragment.fragmentNameResource,
-            PhotosFragment.fragmentNameResource
-        ) to listOf(albumsFragment, photosFragment)
+            PhotosFragment.fragmentNameResource,
+            CombinedAlbumPhotoFragment.fragmentNameResource
+        ) to listOf(albumsFragment, photosFragment, combinedFragment)
+        fragmentAdapter.setFragmentList(fragmentList.second)
 
         binding.apply {
             viewModel = homeViewModel
