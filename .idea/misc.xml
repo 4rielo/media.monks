@@ -10,7 +10,7 @@
         <entry key="app/src/main/res/drawable/ic_monks_launcher_logo.xml" value="0.122" />
         <entry key="app/src/main/res/drawable/ic_monks_logo_inverted.xml" value="0.122" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.19583333333333333" />
-        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.3582427536231884" />
+        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.25" />
         <entry key="app/src/main/res/layout/dialog_photo_detail.xml" value="0.3582427536231884" />
         <entry key="app/src/main/res/layout/fragment_albums.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout/fragment_combined_album_photos.xml" value="0.3582427536231884" />
