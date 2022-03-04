@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.scarafia.mediamonks.R
 import com.scarafia.mediamonks.databinding.FragmentCombinedAlbumPhotosBinding
 import com.scarafia.mediamonks.presentation.screens.homescreen.HomeViewModel
@@ -29,11 +30,27 @@ class CombinedAlbumPhotoFragment: Fragment() {
 
         binding.apply {
 
-            rvCombinedList.adapter = combinedListAdapter
+            rvCombinedList.apply {
+                adapter = combinedListAdapter
+                addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                        val topRowVerticalPosition =
+                            if (recyclerView.childCount == 0) 0 else recyclerView.getChildAt(
+                                0
+                            ).top
+                        swSwipeToRefresh.isEnabled = topRowVerticalPosition >= 0
+                    }
+
+                    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                        super.onScrollStateChanged(recyclerView, newState)
+                    }
+                })
+            }
 
             swSwipeToRefresh.setOnRefreshListener {
                 homeViewModel.refreshPhotoList()
             }
+
         }
 
         return binding.root
