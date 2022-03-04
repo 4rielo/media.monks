@@ -43,7 +43,9 @@ class HomeActivity : AppCompatActivity() {
             viewModel = homeViewModel
             vpFragmentViewer.adapter = fragmentAdapter
 
-            TabLayoutMediator(tbTabLayout, vpFragmentViewer) { tab, position ->
+            fragmentAdapter.setFragmentList(fragmentList.second)
+
+            TabLayoutMediator(tbTabLayout, vpFragmentViewer,true,true) { tab, position ->
                 tab.text = getString(fragmentList.first[position])
             }.attach()
         }
