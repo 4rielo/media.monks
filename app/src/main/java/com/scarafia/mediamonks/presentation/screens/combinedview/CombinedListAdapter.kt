@@ -28,7 +28,7 @@ class CombinedListAdapter(val currentContext: Context): RecyclerView.Adapter<Com
     override fun getItemCount(): Int = albumAndPhotosList.size
 
     override fun onBindViewHolder(holder: CombinedListViewHolder, position: Int) {
-        holder.bind(albumAndPhotosList[position].first, albumAndPhotosList[position].second, currentContext)
+        holder.bind(albumAndPhotosList[position].first, albumAndPhotosList[position].second, position, currentContext)
     }
 
     fun updateRecycler(albumAndPhotosList: List<Pair<AlbumModel, List<PhotosModel>>>) {
