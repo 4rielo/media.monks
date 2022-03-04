@@ -11,6 +11,7 @@ import android.widget.GridLayout
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil.setContentView
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.scarafia.mediamonks.R
 import com.scarafia.mediamonks.databinding.DialogPhotoDetailBinding
 import com.scarafia.mediamonks.databinding.FragmentPhotosBinding
@@ -45,8 +46,24 @@ class PhotosFragment : Fragment() {
         
         binding.apply {
             viewModel = homeViewModel
-            rvPhotoList.adapter = photoListAdapter
-            rvPhotoList.layoutManager = GridLayoutManager(activity,2)
+            rvPhotoList.apply {
+                adapter = photoListAdapter
+                layoutManager = GridLayoutManager(activity,2)
+                addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    val topRowVerticalPosition =
+                        if (recyclerView.childCount == 0) 0 else recyclerView.getChildAt(
+                            0
+                        ).top
+                        swSwipeToRefresh.isEnabled = topRowVerticalPosition >= 0
+                    }
+
+                    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                        super.onScrollStateChanged(recyclerView, newState)
+                    }
+                })
+            }
+
             swSwipeToRefresh.setOnRefreshListener {
                 homeViewModel.refreshPhotoList()
             }
