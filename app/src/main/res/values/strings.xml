@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">media.monks</string>
+    <string name="photo_list_fragment">Photos</string>
+    <string name="album_list_fragment">Albums</string>
+    <string name="combined_list_fragment">Combined View</string>
+    <string name="photo_detail">Photo Detailed View</string>
+    <string name="ok_button">OK</string>
 </resources>
