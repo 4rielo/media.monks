@@ -12,6 +12,7 @@ class SplashViewModel: BaseViewModel() {
     val safeTimeout: LiveData<Boolean> = _safeTimeout
 
     init {
+        //This is a safety timeout, in case there's a problem with the animation.
         object : CountDownTimer(
             ApplicationConstants.SPLASH_SAFE_TIMEOUT_DURATION,
             ApplicationConstants.SPLASH_SAFE_TIMEOUT_STEP
