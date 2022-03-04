@@ -5,12 +5,14 @@ import com.scarafia.mediamonks.application.networking.services.TypicodeService
 import com.scarafia.mediamonks.application.repository.TypicodeRepository
 import com.scarafia.mediamonks.application.repository.TypicodeRepositoryImpl
 import com.scarafia.mediamonks.presentation.screens.homescreen.HomeViewModel
+import com.scarafia.mediamonks.presentation.screens.splash.SplashViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 
 val viewModelsModule = module {
     viewModel { HomeViewModel(get()) }
+    viewModel { SplashViewModel() }
 }
 
 val repositoryModule = module {
