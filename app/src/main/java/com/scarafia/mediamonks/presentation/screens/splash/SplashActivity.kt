@@ -31,6 +31,7 @@ class SplashActivity: AppCompatActivity() {
             }
 
             override fun onAnimationEnd(animation: Animator?) {
+                finish()
                 startActivity(intent)
             }
 
@@ -57,6 +58,7 @@ class SplashActivity: AppCompatActivity() {
     private fun observeSafetyTimeout(){
         splashViewModel.safeTimeout.observe(this){
             if(it) {
+                finish()
                 startActivity(homeIntent)
             }
         }
