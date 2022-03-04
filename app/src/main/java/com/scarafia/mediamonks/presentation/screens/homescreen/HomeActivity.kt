@@ -32,13 +32,14 @@ class HomeActivity : AppCompatActivity() {
             AlbumsFragment.fragmentNameResource,
             PhotosFragment.fragmentNameResource
         ) to listOf(albumsFragment, photosFragment)
-        fragmentAdapter.setFragmentList(fragmentList.second)
 
         binding.apply {
             viewModel = homeViewModel
             vpFragmentViewer.adapter = fragmentAdapter
 
-            TabLayoutMediator(tbTabLayout, vpFragmentViewer) { tab, position ->
+            fragmentAdapter.setFragmentList(fragmentList.second)
+
+            TabLayoutMediator(tbTabLayout, vpFragmentViewer,true,true) { tab, position ->
                 tab.text = getString(fragmentList.first[position])
             }.attach()
         }
